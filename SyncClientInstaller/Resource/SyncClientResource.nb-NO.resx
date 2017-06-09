@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApiKeyFrmDescription" xml:space="preserve">
+    <value>Skriv inn en gyldig API-nøkkel i tekstboksen nedenfor. Dette api nøkkel skal brukes til å koble til cloudid og vil bli brukt for å oppdatere brukerens metadata videre inn i skyen.</value>
+  </data>
+  <data name="ApiKeyFrmHeading" xml:space="preserve">
+    <value>Skriv inn API-nøkkel</value>
+  </data>
+  <data name="CloseCaption" xml:space="preserve">
+    <value>Lukk</value>
+  </data>
+  <data name="ClosingText" xml:space="preserve">
+    <value>Er du sikker på at du vil avslutte installer?</value>
+  </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="CommonChangeLanguage" xml:space="preserve">
+    <value>Skifte språk</value>
+  </data>
+  <data name="CommonConfirmation" xml:space="preserve">
+    <value>Bekreftelse</value>
+  </data>
+  <data name="CommonEnglish" xml:space="preserve">
+    <value>Engelsk</value>
+  </data>
+  <data name="CommonFinish" xml:space="preserve">
+    <value>Bli ferdig</value>
+  </data>
+  <data name="CommonInstall" xml:space="preserve">
+    <value>Installere</value>
+  </data>
+  <data name="CommonNext" xml:space="preserve">
+    <value>Neste</value>
+  </data>
+  <data name="CommonNorsk" xml:space="preserve">
+    <value>Norsk</value>
+  </data>
+  <data name="CommonPrevious" xml:space="preserve">
+    <value>Tilbake</value>
+  </data>
+  <data name="CustomerFrmDescription" xml:space="preserve">
+    <value>Fyll inn gyldig kundens navn i tekstboksen nedenfor. Denne kunden vil bli validert mot api-metoden. Denne kunden kort kode brukes til å oppdatere brukerens metadata inn i skyen for denne kunden.</value>
+  </data>
+  <data name="CustomerFrmHeading" xml:space="preserve">
+    <value>Skriv inn Kundenavn</value>
+  </data>
+  <data name="InstallationPathFrmBrowse" xml:space="preserve">
+    <value>Søk</value>
+  </data>
+  <data name="InstallationPathFrmDescription" xml:space="preserve">
+    <value>Oppgi gyldig bane i tekstboksen nedenfor. Denne banen vil bli brukt til å installere og planlegging av jobben for å kjøre på regelmessig basis og oppdatere brukerens metadata i skyen.</value>
+  </data>
+  <data name="InstallationPathFrmHeading" xml:space="preserve">
+    <value>Oppgi installeringsbanen</value>
+  </data>
+  <data name="InstallSuccessMsg" xml:space="preserve">
+    <value>Takk for at du installerer synkroniseringsklient søknaden. Du Active Directory-brukere som tilhører gruppen 'cloudidsyncusers' vil bli synkronisert med cloud hvert 15. minutt.</value>
+  </data>
+  <data name="StartFormDescription" xml:space="preserve">
+    <value>Synkroniseringsklient programmet brukes til å synkronisere brukere fra Active Directory til skyen. Alle metadataene som innbefatter UPNet, SamsAccountName, Fornavn, Name, Display, ObjectSid, emailaddresses, AddressInformation, Phonenumber , mobilnummeret etc vil bli oppdatert for å sky.</value>
+  </data>
+  <data name="StartFormHeading" xml:space="preserve">
+    <value>Velkommen til å synkronisere klientprogrammet</value>
+  </data>
+  <data name="UserDetailsFrmDescription" xml:space="preserve">
+    <value>Fyll inn brukernavn og passord i under tekstboksen . Brukernavnet og passordet blir validert mot api.</value>
+  </data>
+  <data name="UserDetailsFrmHeading" xml:space="preserve">
+    <value>Skriv inn brukernavn og passord</value>
+  </data>
+  <data name="UserDetailsFrmPassword" xml:space="preserve">
+    <value>Passord</value>
+  </data>
+  <data name="UserDetailsFrmUserName" xml:space="preserve">
+    <value>Brukernavn</value>
+  </data>
+  <data name="InstallDescription" xml:space="preserve">
+    <value>Klikk på 'install' for å starte installasjonen. Når programmet er installert, vil brukeren fra den aktive katalog synkroniseres med sky. Denne synkroniseringen skal skje hvert 15. minutt.</value>
+  </data>
+  <data name="InstallHeading" xml:space="preserve">
+    <value>Installer Sync Klient Programmet</value>
+  </data>
+  <data name="InstallWaitMessage" xml:space="preserve">
+    <value>Vennligst vent</value>
+  </data>
+  <data name="ApiKey" xml:space="preserve">
+    <value>Api-nøkkel</value>
+  </data>
+  <data name="ApiKeyValidationMsg" xml:space="preserve">
+    <value>Api-nøkkelen kan ikke være tom. Vennligst skriv inn gyldig Api-nøkkel.</value>
+  </data>
+  <data name="ApiUrlValidationMsg" xml:space="preserve">
+    <value>Vennligst angi basen api url for nøkkelen 'ApiBaseUrl' i konfigurasjonsfilen.</value>
+  </data>
+  <data name="AuthenticationValidationMsg" xml:space="preserve">
+    <value>Ugyldig brukernavn eller passord.</value>
+  </data>
+  <data name="CustomerCode" xml:space="preserve">
+    <value>Kundenummer</value>
+  </data>
+  <data name="CustomerShortCode" xml:space="preserve">
+    <value>Kundekortkode</value>
+  </data>
+  <data name="CustomerShortCodeValidationMsg" xml:space="preserve">
+    <value>Kundekortkoden kan ikke være tom. Vennligst skriv inn en gyldig kundekortkode.</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>Installere</value>
+  </data>
+  <data name="InstallationPath" xml:space="preserve">
+    <value>Installasjonsvei</value>
+  </data>
+  <data name="InvalidApiKey" xml:space="preserve">
+    <value>Ugyldig kundekode / api-nøkkel.</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Budskap</value>
+  </data>
+  <data name="PasswordValidationMsg" xml:space="preserve">
+    <value>Passordet kan ikke være tomt. Vennligst skriv inn et gyldig passord.</value>
+  </data>
+  <data name="PathValidationMsg" xml:space="preserve">
+    <value>Ugyldig sti. Vennligst skriv inn en gyldig bane.</value>
+  </data>
+  <data name="UserDetail" xml:space="preserve">
+    <value>Brukerdetaljer</value>
+  </data>
+  <data name="UsernameValidationMsg" xml:space="preserve">
+    <value>Brukernavnet kan ikke være tomt. Vennligst skriv inn et gyldig brukernavn.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Velkommen</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Feil</value>
+  </data>
+  <data name="CustomerEmail" xml:space="preserve">
+    <value>Meldings-e-post</value>
+  </data>
+  <data name="CustomerEmailDescription" xml:space="preserve">
+    <value>Vennligst oppgi en gyldig epostadresse. Denne e-postadressen brukes til å sende varselmailen.</value>
+  </data>
+  <data name="CustomerEmailRequired" xml:space="preserve">
+    <value>E-postadresse kan ikke være tom</value>
+  </data>
+  <data name="CustomerEmailValidation" xml:space="preserve">
+    <value>Vennligst oppgi en gyldig epostadresse</value>
+  </data>
+  <data name="LDAPConfiguration" xml:space="preserve">
+    <value>LDAP Konfigurasjon</value>
+  </data>
+  <data name="LDAPPath" xml:space="preserve">
+    <value>LDAP Sti</value>
+  </data>
+  <data name="LDAPPathDescription" xml:space="preserve">
+    <value>Vennligst oppgi LDAP-banen og sikkerhetsgruppen banen i oppgitt tekstboks. Denne banen vil bli brukt til å hente brukeren fra den aktive kataloggruppen "cloudidsyncusers"  og oppdatere til skyen. Hvis AD-serveren befinner seg på et annet sted, merker du av i boksen og oppgir servernavnet, servernavnet og serverpassordet.</value>
+  </data>
+  <data name="LDAPPathRequired" xml:space="preserve">
+    <value>Vennligst skriv inn LDAP-banen</value>
+  </data>
+  <data name="LDAPPathValidation" xml:space="preserve">
+    <value>Vennligst skriv inn gyldig LDAP-bane</value>
+  </data>
+  <data name="LDAPSecurityGroup" xml:space="preserve">
+    <value>OU Sti</value>
+  </data>
+  <data name="LDAPSecurityGroupRequired" xml:space="preserve">
+    <value>Vennligst skriv inn OU-banen</value>
+  </data>
+  <data name="LDAPSecurityGroupValidation" xml:space="preserve">
+    <value>Vennligst skriv inn en gyldig OU-sti</value>
+  </data>
+  <data name="SelectPath" xml:space="preserve">
+    <value>Velg Installasjonsvei</value>
+  </data>
+  <data name="CustomerApiKeyValidation" xml:space="preserve">
+    <value>Enten kundens kortkode eller api-nøkkel er ugyldig. Vennligst skriv inn gyldig kundekortkode og api-tast for å fortsette videre.</value>
+  </data>
+  <data name="InstallFailureMsg" xml:space="preserve">
+    <value>Noen feil har oppstått. Vennligst gjør feilen og prøv igjen.</value>
+  </data>
+  <data name="ADServerPassword" xml:space="preserve">
+    <value>AD Server Passord</value>
+  </data>
+  <data name="ADServerUsername" xml:space="preserve">
+    <value>AD Server brukernavn</value>
+  </data>
+  <data name="EnableADServerText" xml:space="preserve">
+    <value>Aktiver Active Directory Server Navn</value>
+  </data>
+  <data name="ServerName" xml:space="preserve">
+    <value>Server Navn</value>
+  </data>
+  <data name="ServerNameRequired" xml:space="preserve">
+    <value>Servernavn kan ikke være tomt. Hvis servernavn ikke er påkrevd, må du deaktivere avkrysningsruten ovenfor.</value>
+  </data>
+  <data name="ServerPassweordRequired" xml:space="preserve">
+    <value>Serverpassordet kan ikke være tomt. Vennligst oppgi et gyldig passord.</value>
+  </data>
+  <data name="ServerUserNameRequired" xml:space="preserve">
+    <value>Server brukernavn kan ikke være tomt. Vennligst oppgi et gyldig brukernavn.</value>
+  </data>
+</root>
