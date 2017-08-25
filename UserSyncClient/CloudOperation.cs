@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Script.Serialization;
-using System.Runtime.Serialization;
 
 namespace UserSyncClient
 {
