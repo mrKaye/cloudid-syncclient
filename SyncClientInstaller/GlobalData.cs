@@ -85,5 +85,26 @@ namespace SyncClientInstaller
             get { return _ouPath; }
             set { _ouPath = value; }
         }
+
+        private static bool _isCheckBoxChecked;
+        public static bool IsCheckBoxChecked 
+        { 
+            get { return _isCheckBoxChecked; } 
+            set { _isCheckBoxChecked = value; } 
+        }
+
+        private static string _ldapString;
+        public static string LdapString 
+        {
+            get { return _ldapString; }
+            set { _ldapString = value; } 
+        }
+
+        private static string _ouString;
+        public static string OUString
+        {
+            get { return _ouString; }
+            set { _ouString = value; }
+        }
     }
 }

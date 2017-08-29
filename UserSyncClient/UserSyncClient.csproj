@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UserSyncClient</RootNamespace>
     <AssemblyName>UserSyncClient</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -43,7 +44,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\SyncClientInstaller\Data\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -51,7 +52,64 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\SyncClientInstaller\Data\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>..\SyncClientInstaller\Data\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\SyncClientInstaller\Data\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\SyncClientInstaller\Data\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DSInternals.Common, Version=2.21.2.0, Culture=neutral, PublicKeyToken=af7e77ba04a3c166, processorArchitecture=MSIL">
+      <HintPath>..\packages\DSInternals.Common.2.21.2\lib\net451\DSInternals.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DSInternals.Replication, Version=2.21.2.0, Culture=neutral, PublicKeyToken=af7e77ba04a3c166, processorArchitecture=MSIL">
+      <HintPath>..\packages\DSInternals.Replication.2.21.2\lib\net451\DSInternals.Replication.dll</HintPath>
+    </Reference>
+    <Reference Include="DSInternals.Replication.Model, Version=2.21.2.0, Culture=neutral, PublicKeyToken=af7e77ba04a3c166, processorArchitecture=MSIL">
+      <HintPath>..\packages\DSInternals.Replication.2.21.2\lib\net451\DSInternals.Replication.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="DSInternals.SAM, Version=2.21.2.0, Culture=neutral, PublicKeyToken=af7e77ba04a3c166, processorArchitecture=MSIL">
+      <HintPath>..\packages\DSInternals.SAM.2.21.2\lib\net451\DSInternals.SAM.dll</HintPath>
+    </Reference>
+    <Reference Include="NDceRpc.Microsoft, Version=0.2.1.0, Culture=neutral, PublicKeyToken=7ef76aa0ad6f5cef, processorArchitecture=MSIL">
+      <HintPath>..\packages\NDceRpc.0.2.1.0\lib\NET40\NDceRpc.Microsoft.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -80,6 +138,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="DSInternals_v2.22\DSInternals\DSInternals.DSAccount.format.ps1xml" />
+    <None Include="DSInternals_v2.22\DSInternals\DSInternals.Hash.format.ps1xml" />
+    <None Include="DSInternals_v2.22\DSInternals\DSInternals.KdsRootKey.format.ps1xml" />
+    <None Include="DSInternals_v2.22\DSInternals\DSInternals.PasswordQualityTestResult.format.ps1xml" />
+    <None Include="DSInternals_v2.22\DSInternals\DSInternals.psd1" />
+    <None Include="DSInternals_v2.22\DSInternals\DSInternals.psm1" />
+    <None Include="DSInternals_v2.22\DSInternals\DSInternals.RoamedCredential.format.ps1xml" />
+    <None Include="DSInternals_v2.22\DSInternals\DSInternals.SamDomainPasswordInformation.format.ps1xml" />
+    <None Include="packages.config" />
     <None Include="SecurityGroupUser.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -101,7 +168,51 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="DSInternals_v2.22\Changelog.txt" />
+    <Content Include="DSInternals_v2.22\DSInternals\amd64\DSInternals.Replication.Interop.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\amd64\msvcp120.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\amd64\msvcr120.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\amd64\x64.txt" />
+    <Content Include="DSInternals_v2.22\DSInternals\AutoMapper.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\DSInternals.Common.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\DSInternals.DataStore.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\DSInternals.PowerShell.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\DSInternals.Replication.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\DSInternals.Replication.Model.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\DSInternals.SAM.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\en-US\about_DSInternals.help.txt" />
+    <Content Include="DSInternals_v2.22\DSInternals\Esent.Interop.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\Esent.Isam.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\NDceRpc.Microsoft.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\x86\DSInternals.Replication.Interop.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\x86\msvcp120.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\x86\msvcr120.dll" />
+    <Content Include="DSInternals_v2.22\DSInternals\x86\x86.txt" />
+    <Content Include="DSInternals_v2.22\Readme.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if '$(Platform)' == 'x64' xcopy "$(ProjectDir)DSInternals_v2.22\DSInternals\amd64\DSInternals.Replication.Interop.dll" "$(SolutionDir)SyncClientInstaller\Data" /y
+
+if '$(Platform)' == 'x64' xcopy "$(ProjectDir)DSInternals_v2.22\DSInternals\amd64\msvcp120.dll" "$(SolutionDir)SyncClientInstaller\Data" /y
+
+if '$(Platform)' == 'x64' xcopy "$(ProjectDir)DSInternals_v2.22\DSInternals\amd64\msvcr120.dll" "$(SolutionDir)SyncClientInstaller\Data" /y
+
+if '$(Platform)' == 'x64' xcopy "$(ProjectDir)DSInternals_v2.22\DSInternals\amd64\x64.txt" "$(SolutionDir)SyncClientInstaller\Data" /y
+
+if '$(Platform)' == 'x86' xcopy "$(ProjectDir)DSInternals_v2.22\DSInternals\x86\DSInternals.Replication.Interop.dll" "$(SolutionDir)SyncClientInstaller\Data" /y
+
+if '$(Platform)' == 'x86' xcopy "$(ProjectDir)DSInternals_v2.22\DSInternals\x86\msvcp120.dll" "$(SolutionDir)SyncClientInstaller\Data" /y
+
+if '$(Platform)' == 'x86' xcopy "$(ProjectDir)DSInternals_v2.22\DSInternals\x86\msvcr120.dll" "$(SolutionDir)SyncClientInstaller\Data" /y
+
+if '$(Platform)' == 'x86' xcopy "$(ProjectDir)DSInternals_v2.22\DSInternals\x86\x86.txt" "$(SolutionDir)SyncClientInstaller\Data" /y</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

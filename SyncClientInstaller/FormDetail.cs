@@ -58,10 +58,20 @@ namespace SyncClientInstaller
         public static void OpenLDAPPathForm()
         {
             LDAPPath ldapPathFrm = new LDAPPath();
+            if(GlobalData.IsCheckBoxChecked)
+            {
+                ldapPathFrm.chkEnableADServerName.Checked = true;
+                ldapPathFrm.txtLdapPathServerName.Text = Common.GetAppSettingdataValue("ADServerName");
+                ldapPathFrm.txtOuPathServerName.Text = Common.GetAppSettingdataValue("ADServerName");
+                ldapPathFrm.txtLdapPathServerName.Enabled = ldapPathFrm.txtOuPathServerName.Enabled = true;
+                ldapPathFrm.txtAdServerUsername.Visible = ldapPathFrm.txtAdServerPassword.Visible = true;
+                ldapPathFrm.txtAdServerUsername.Text = Common.GetAppSettingdataValue("ADServerUserName");
+                ldapPathFrm.txtAdServerPassword.Text = Common.GetAppSettingdataValue("ADServerPassword");
+            }
             ldapPathFrm.MdiParent = GlobalData.FrmName;
             ldapPathFrm.Dock = DockStyle.Fill;
-            ldapPathFrm.txtLDAPPath.Text = string.IsNullOrEmpty(Common.GetAppSettingdataValue("LDAPPath")) ? "" : Common.GetAppSettingdataValue("LDAPPath").Remove(0, 7);
-            ldapPathFrm.txtLDAPSecurityGroup.Text = string.IsNullOrEmpty(GlobalData.OUPath) ? "" : GlobalData.OUPath.Remove(0, 7);
+            ldapPathFrm.txtLDAPPath.Text = string.IsNullOrEmpty(GlobalData.LdapString) ? "" : GlobalData.LdapString;
+            ldapPathFrm.txtLDAPSecurityGroup.Text = string.IsNullOrEmpty(GlobalData.OUString) ? "" : GlobalData.OUString;
             ldapPathFrm.Show();
         }
 

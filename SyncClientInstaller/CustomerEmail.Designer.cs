@@ -54,10 +54,9 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
+            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescription.Size = new System.Drawing.Size(430, 120);
             this.txtDescription.TabIndex = 14;
-            this.txtDescription.Text = "Please enter a valid email address. This Email address is used to send the notifi" +
-    "cation mails.";
             // 
             // txtCustomerEmail
             // 

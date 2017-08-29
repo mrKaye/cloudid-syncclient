@@ -67,6 +67,7 @@ namespace SyncClientInstaller
             Common.AddAppSettingData("telephoneNumber", "true");
             Common.AddAppSettingData("mobile", "true");
         }
+
         /// <summary>
         /// This method is used for localizing the common texts
         /// </summary>
@@ -218,6 +219,7 @@ namespace SyncClientInstaller
                 {
                     btnNext.Text = Common.GetResourceKeyValue("CommonNext");
                 }
+                Dictionary<TextBox, string> dictionaryTextbox = null;
 
                 switch (GlobalData.NextFormName)
                 {
@@ -229,17 +231,11 @@ namespace SyncClientInstaller
                         break;
                     case "UserDetails":
                         //Customer name validation
-                        if (string.IsNullOrEmpty(((CustomerValidation)this.MdiChildren[0]).txtCustomerName.Text.Trim()))
-                        {
-                            MessageBox.Show(Common.GetResourceKeyValue("CustomerShortCodeValidationMsg"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
+                        dictionaryTextbox = new Dictionary<TextBox, string>();
+                        dictionaryTextbox.Add(((CustomerValidation)this.MdiChildren[0]).txtCustomerName, Common.GetResourceKeyValue("CustomerShortCodeValidationMsg"));
+                        dictionaryTextbox.Add(((CustomerValidation)this.MdiChildren[0]).txtApiKey, Common.GetResourceKeyValue("ApiKeyValidationMsg"));
+                        if (!IsControlRequiredFieldValidated(dictionaryTextbox))
                             return;
-                        }
-                        //Api key validation
-                        if (string.IsNullOrEmpty(((CustomerValidation)this.MdiChildren[0]).txtApiKey.Text.Trim()))
-                        {
-                            MessageBox.Show(Common.GetResourceKeyValue("ApiKeyValidationMsg"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
-                            return;
-                        }
 
                         HttpWebResponse apiResponse = null;
                         try
@@ -267,17 +263,11 @@ namespace SyncClientInstaller
                         FormDetail.OpenUserDetailsForm();
                         break;
                     case "LDAPPath":
-                        //Textbox validations
-                        if (string.IsNullOrEmpty(((UserDetails)this.MdiChildren[0]).txtUserName.Text.Trim()))
-                        {
-                            MessageBox.Show(Common.GetResourceKeyValue("UsernameValidationMsg"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
+                        dictionaryTextbox = new Dictionary<TextBox, string>();
+                        dictionaryTextbox.Add(((UserDetails)this.MdiChildren[0]).txtUserName, Common.GetResourceKeyValue("UsernameValidationMsg"));
+                        dictionaryTextbox.Add(((UserDetails)this.MdiChildren[0]).txtPassword, Common.GetResourceKeyValue("PasswordValidationMsg"));
+                        if (!IsControlRequiredFieldValidated(dictionaryTextbox))
                             return;
-                        }
-                        if (string.IsNullOrEmpty(((UserDetails)this.MdiChildren[0]).txtPassword.Text.Trim()))
-                        {
-                            MessageBox.Show(Common.GetResourceKeyValue("PasswordValidationMsg"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
-                            return;
-                        }
                         var streamProperties = new
                         {
                             CustomerShortCode = Common.GetAppSettingdataValue("CustomerShortCode"),
@@ -290,15 +280,15 @@ namespace SyncClientInstaller
                         try
                         {
                             response = (HttpWebResponse)Common.GetApiResponse(Common.GetAppSettingdataValue("CustomerShortCode"), Common.GetAppSettingdataValue("ApiKey"), "/api/customer/validate", "POST", "application/json", content);
+                            if (response == null || response.StatusCode != HttpStatusCode.OK)
+                            {
+                                MessageBox.Show(Common.GetResourceKeyValue("AuthenticationValidationMsg"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
+                                return;
+                            }
                         }
                         catch
                         {
                             MessageBox.Show(Common.GetResourceKeyValue("AuthenticationValidationMsg"), Common.GetResourceKeyValue("Error"), MessageBoxButtons.OK);
-                            return;
-                        }
-                        if (response == null || response.StatusCode != HttpStatusCode.OK)
-                        {
-                            MessageBox.Show(Common.GetResourceKeyValue("AuthenticationValidationMsg"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
                             return;
                         }
                         //Temporary store username and password to be updated in config file later on
@@ -310,51 +300,51 @@ namespace SyncClientInstaller
                         FormDetail.OpenLDAPPathForm();
                         break;
                     case "CustomerEmail":
-                        if (((LDAPPath)this.MdiChildren[0]).chkEnableADServerName.Checked)
-                        {
-                            if (string.IsNullOrEmpty(((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName.Text))
-                            {
-                                MessageBox.Show(Common.GetResourceKeyValue("ServerNameRequired"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
-                                return;
-                            }
-                            if (string.IsNullOrEmpty(((LDAPPath)this.MdiChildren[0]).txtOuPathServerName.Text))
-                            {
-                                MessageBox.Show(Common.GetResourceKeyValue("ServerNameRequired"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
-                                return;
-                            }
-                            if (string.IsNullOrEmpty(((LDAPPath)this.MdiChildren[0]).txtAdServerUsername.Text))
-                            {
-                                MessageBox.Show(Common.GetResourceKeyValue("ServerUserNameRequired"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
-                                return;
-                            }
-                            if (string.IsNullOrEmpty(((LDAPPath)this.MdiChildren[0]).txtAdServerPassword.Text))
-                            {
-                                MessageBox.Show(Common.GetResourceKeyValue("ServerPassweordRequired"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
-                                return;
-                            }
-                        }
-                        if (string.IsNullOrEmpty(((LDAPPath)this.MdiChildren[0]).txtLDAPPath.Text.Trim()))
-                        {
-                            MessageBox.Show(Common.GetResourceKeyValue("LDAPPathRequired"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
-                            return;
-                        }
-                        if (string.IsNullOrEmpty(((LDAPPath)this.MdiChildren[0]).txtLDAPSecurityGroup.Text.Trim()))
-                        {
-                            MessageBox.Show(Common.GetResourceKeyValue("LDAPSecurityGroupRequired"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
-                            return;
-                        }
+                        dictionaryTextbox = new Dictionary<TextBox, string>();
 
                         if (((LDAPPath)this.MdiChildren[0]).chkEnableADServerName.Checked)
                         {
+                            dictionaryTextbox.Add(((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName, Common.GetResourceKeyValue("ServerNameRequired"));
+                            dictionaryTextbox.Add(((LDAPPath)this.MdiChildren[0]).txtOuPathServerName, Common.GetResourceKeyValue("ServerNameRequired"));
+                            dictionaryTextbox.Add(((LDAPPath)this.MdiChildren[0]).txtAdServerUsername, Common.GetResourceKeyValue("ServerUserNameRequired"));
+                            dictionaryTextbox.Add(((LDAPPath)this.MdiChildren[0]).txtAdServerPassword, Common.GetResourceKeyValue("ServerPassweordRequired"));
+                        }
+                        dictionaryTextbox.Add(((LDAPPath)this.MdiChildren[0]).txtLDAPPath, Common.GetResourceKeyValue("LDAPPathRequired"));
+                        dictionaryTextbox.Add(((LDAPPath)this.MdiChildren[0]).txtLDAPSecurityGroup, Common.GetResourceKeyValue("LDAPSecurityGroupRequired"));
+
+                        if (!IsControlRequiredFieldValidated(dictionaryTextbox))
+                            return;
+
+                        if (((LDAPPath)this.MdiChildren[0]).chkEnableADServerName.Checked)
+                        {
+                            //Check whether ldap server validity
                             try
                             {
-                                using (var ldapConnection = new LdapConnection(((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName.Text))
+                                //Checks the validity of LDAP path
+                                string ldapPath = "LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName.Text.Trim() + "/" + ((LDAPPath)this.MdiChildren[0]).txtLDAPPath.Text.Trim();
+                                bool isValidLDAP = Authenticate(ldapPath, ((LDAPPath)this.MdiChildren[0]).txtAdServerUsername.Text, ((LDAPPath)this.MdiChildren[0]).txtAdServerPassword.Text);
+                                if (isValidLDAP)
                                 {
-                                    var networkCredential = new NetworkCredential(((LDAPPath)this.MdiChildren[0]).txtAdServerUsername.Text, ((LDAPPath)this.MdiChildren[0]).txtAdServerPassword.Text, ((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName.Text.Trim());
-                                    ldapConnection.SessionOptions.SecureSocketLayer = true;
-                                    ldapConnection.AuthType = AuthType.Negotiate;
-                                    ldapConnection.Bind(networkCredential);
+                                    //Checks the validity of OU path
+                                    string ouPath = "LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName.Text.Trim() + "/" + ((LDAPPath)this.MdiChildren[0]).txtLDAPSecurityGroup.Text.Trim();
+                                    bool isValidOUPath = Authenticate(ouPath, ((LDAPPath)this.MdiChildren[0]).txtAdServerUsername.Text, ((LDAPPath)this.MdiChildren[0]).txtAdServerPassword.Text);
+                                    if (!isValidOUPath)
+                                    {
+                                        MessageBox.Show(Common.GetResourceKeyValue("LDAPSecurityGroupValidation"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
+                                        return;
+                                    }
                                 }
+                                else
+                                {
+                                    MessageBox.Show(Common.GetResourceKeyValue("LDAPPathValidation"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
+                                    return;
+                                }
+                                Common.AddAppSettingData("ADServerName", ((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName.Text.Trim());
+                                Common.AddAppSettingData("ADServerUserName", ((LDAPPath)this.MdiChildren[0]).txtAdServerUsername.Text.Trim());
+                                Common.AddAppSettingData("ADServerPassword", ((LDAPPath)this.MdiChildren[0]).txtAdServerPassword.Text.Trim());
+                                Common.AddAppSettingData("LDAPPath", "LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName.Text.Trim() + "/" + ((LDAPPath)this.MdiChildren[0]).txtLDAPPath.Text.Trim());
+                                GlobalData.OUPath = "LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName.Text.Trim() + "/" + ((LDAPPath)this.MdiChildren[0]).txtLDAPSecurityGroup.Text.Trim();
+                                GlobalData.IsCheckBoxChecked = true;
                             }
                             catch (LdapException ldapException)
                             {
@@ -364,65 +354,48 @@ namespace SyncClientInstaller
                         }
                         else
                         {
-                            bool isLDAPPath = false;
                             try
                             {
+                                bool isLDAPPath = false;
                                 isLDAPPath = DirectoryEntry.Exists("LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLDAPPath.Text.Trim());
+                                if (!isLDAPPath)
+                                {
+                                    MessageBox.Show(Common.GetResourceKeyValue("LDAPPathValidation"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
+                                    return;
+                                }
+                                else
+                                {
+                                    bool isValidOUGroup = false;
+                                    isValidOUGroup = DirectoryEntry.Exists("LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLDAPSecurityGroup.Text.Trim());
+                                    if (!isValidOUGroup)
+                                    {
+                                        MessageBox.Show(Common.GetResourceKeyValue("LDAPSecurityGroupValidation"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
+                                        return;
+                                    }
+                                }
+                                Common.AddAppSettingData("LDAPPath", "LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLDAPPath.Text.Trim());
+                                GlobalData.OUPath = "LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLDAPSecurityGroup.Text.Trim();
+                                GlobalData.IsCheckBoxChecked = false;
                             }
                             catch
                             {
                                 MessageBox.Show(Common.GetResourceKeyValue("LDAPPathValidation"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
                                 return;
                             }
-                            if (!isLDAPPath)
-                            {
-                                MessageBox.Show(Common.GetResourceKeyValue("LDAPPathValidation"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
-                                return;
-                            }
                         }
-
-                        bool isValidOUGroup = false;
-                        try
-                        {
-                            isValidOUGroup = DirectoryEntry.Exists("LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLDAPSecurityGroup.Text.Trim());
-                        }
-                        catch
-                        {
-                            MessageBox.Show(Common.GetResourceKeyValue("LDAPSecurityGroupValidation"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
-                            return;
-                        }
-                        if (!isValidOUGroup)
-                        {
-                            MessageBox.Show(Common.GetResourceKeyValue("LDAPSecurityGroupValidation"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
-                            return;
-                        }
-                        if (((LDAPPath)this.MdiChildren[0]).chkEnableADServerName.Checked)
-                        {
-                            Common.AddAppSettingData("ADServerName", ((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName.Text.Trim());
-                            Common.AddAppSettingData("ADServerUserName", ((LDAPPath)this.MdiChildren[0]).txtAdServerUsername.Text.Trim());
-                            Common.AddAppSettingData("ADServerPassword", ((LDAPPath)this.MdiChildren[0]).txtAdServerPassword.Text.Trim());
-
-                            Common.AddAppSettingData("LDAPPath", "LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName.Text.Trim() + "/" + ((LDAPPath)this.MdiChildren[0]).txtLDAPPath.Text.Trim());
-                            GlobalData.OUPath = "LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLdapPathServerName.Text.Trim() + "/" + ((LDAPPath)this.MdiChildren[0]).txtLDAPSecurityGroup.Text.Trim();
-                        }
-                        else
-                        {
-                            Common.AddAppSettingData("LDAPPath", "LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLDAPPath.Text.Trim());
-                            GlobalData.OUPath = "LDAP://" + ((LDAPPath)this.MdiChildren[0]).txtLDAPSecurityGroup.Text.Trim();
-                        }
-
+                        GlobalData.LdapString = ((LDAPPath)this.MdiChildren[0]).txtLDAPPath.Text.Trim();
+                        GlobalData.OUString = ((LDAPPath)this.MdiChildren[0]).txtLDAPSecurityGroup.Text.Trim();
                         //Open the new form
                         ((LDAPPath)this.MdiChildren[0]).Close();
                         lnkLblCustomerEmail.Enabled = true;
                         FormDetail.OpenCustomerEmailForm();
                         break;
                     case "InstallationPath":
-                        //TextBox validation
-                        if (string.IsNullOrEmpty(((CustomerEmail)this.MdiChildren[0]).txtCustomerEmail.Text.Trim()))
-                        {
-                            MessageBox.Show(Common.GetResourceKeyValue("CustomerEmailRequired"), Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
+                        dictionaryTextbox = new Dictionary<TextBox, string>();
+                        dictionaryTextbox.Add(((CustomerEmail)this.MdiChildren[0]).txtCustomerEmail, Common.GetResourceKeyValue("CustomerEmailRequired"));
+                        if (!IsControlRequiredFieldValidated(dictionaryTextbox))
                             return;
-                        }
+
                         if (!Regex.IsMatch(((CustomerEmail)this.MdiChildren[0]).txtCustomerEmail.Text.Trim(), @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
                                                             @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$", RegexOptions.IgnoreCase))
                         {
@@ -458,6 +431,66 @@ namespace SyncClientInstaller
                         break;
                 }
             }
+        }
+
+        private bool IsControlRequiredFieldValidated(Dictionary<TextBox, string> dictionaryTextboxes)
+        {
+            foreach (var item in dictionaryTextboxes)
+            {
+                if (string.IsNullOrEmpty(item.Key.Text.Trim()))
+                {
+                    MessageBox.Show(item.Value, Common.GetResourceKeyValue("Message"), MessageBoxButtons.OK);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// This function will checks the validity of LDAP path
+        /// </summary>
+        /// <param name="ldapPath">LDAP path</param>
+        /// <param name="userName">Username</param>
+        /// <param name="password">password</param>
+        /// <returns></returns>
+        private bool Authenticate(string ldapPath, string userName, string password)
+        {
+            bool authentic = false;
+            try
+            {
+                DirectoryEntry entry = new DirectoryEntry(ldapPath, userName, password);
+                object nativeObject = entry.NativeObject;
+                authentic = true;
+            }
+            catch (Exception)
+            { }
+            return authentic;
+        }
+
+        /// <summary>
+        /// Function to return the domain name from ldap path
+        /// </summary>
+        /// <param name="LDAP">LDAP path</param>
+        /// <returns>domain name</returns>
+        static string GetDomain(string LDAP)
+        {
+            string domain = string.Empty;
+            if (LDAP.LastIndexOf('/') != -1)
+            {
+                while (LDAP.LastIndexOf('/') + 1 == LDAP.Length)
+                {
+                    LDAP = LDAP.Remove(LDAP.LastIndexOf('/'));
+                }
+            }
+
+            string ldapPath = LDAP.Substring(LDAP.LastIndexOf('/') + 1);
+            string domainComponent = ldapPath.Substring(ldapPath.ToLower().IndexOf("dc"));
+            string[] domainParts = domainComponent.Split(',');
+            foreach (var part in domainParts)
+            {
+                domain += part.Split('=')[1] + ".";
+            }
+            return domain.Remove(domain.LastIndexOf('.'));
         }
 
         /// <summary>

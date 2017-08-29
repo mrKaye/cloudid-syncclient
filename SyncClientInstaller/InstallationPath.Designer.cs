@@ -70,11 +70,9 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
+            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescription.Size = new System.Drawing.Size(433, 85);
             this.txtDescription.TabIndex = 17;
-            this.txtDescription.Text = "Please enter the valid path in the textbox below. This path will be used for inst" +
-    "alling and scheduling the job to run on regular basis and update the user metada" +
-    "ta into cloud.";
             // 
             // btnBrowse
             // 

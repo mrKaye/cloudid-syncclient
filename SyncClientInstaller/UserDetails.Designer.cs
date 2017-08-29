@@ -86,10 +86,9 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
+            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescription.Size = new System.Drawing.Size(433, 95);
             this.txtDescription.TabIndex = 9;
-            this.txtDescription.Text = "Please enter username and password in the below text box. This username and passw" +
-    "ord will be validated against the api .";
             // 
             // lblHeading
             // 

@@ -63,11 +63,9 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
+            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescription.Size = new System.Drawing.Size(434, 120);
             this.txtDescription.TabIndex = 5;
-            this.txtDescription.Text = "Please enter the valid api key into the text box provided below. This api key wil" +
-    "l be used to connect to the cloudid and will be used for updating the user\'s met" +
-    "adata further into cloud.";
             // 
             // lblApiKey
             // 
