@@ -111,7 +111,7 @@ namespace SyncClientInstaller
 
         public static void CheckSecurityGroupExistance()
         {
-            using(DirectoryEntry baseLDAPDirectoryEntry=new DirectoryEntry(Common.GetAppSettingdataValue("LDAPPath")))
+            using(DirectoryEntry baseLDAPDirectoryEntry=new DirectoryEntry(GlobalData.OUPath))//Common.GetAppSettingdataValue("LDAPPath")))
             {
                 if(!string.IsNullOrEmpty(Common.GetAppSettingdataValue("ADServerName")))
                 {

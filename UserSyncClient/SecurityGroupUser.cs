@@ -38,6 +38,8 @@ namespace UserSyncClient
 
         public string Street { get; set; }
 
-        public string Password { get; set; }
+        //public string Password { get; set; }
+
+        public string PasswordHash { get; set; }
     }
 }

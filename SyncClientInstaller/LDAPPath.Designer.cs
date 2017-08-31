@@ -67,11 +67,9 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
+            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescription.Size = new System.Drawing.Size(430, 80);
             this.txtDescription.TabIndex = 16;
-            this.txtDescription.Text = "Please provide the LDAP path and the security group path in the textbox provided." +
-    " This path will be used to fetch the user from the active directory group \'cloud" +
-    "idsyncusers\'and update into the cloud.";
             // 
             // txtLDAPSecurityGroup
             // 

@@ -27,8 +27,8 @@ namespace SyncClientInstaller
             lblLDAPPath.Text = Common.GetResourceKeyValue("LDAPPath");
             lblLDAPSecurityGroup.Text = Common.GetResourceKeyValue("LDAPSecurityGroup");
             chkEnableADServerName.Text = Common.GetResourceKeyValue("EnableADServerText");
-            txtLdapPathServerName.Text = Common.GetResourceKeyValue("ServerName");
-            txtOuPathServerName.Text = Common.GetResourceKeyValue("ServerName");
+            txtLdapPathServerName.Text = string.IsNullOrEmpty(Common.GetAppSettingdataValue("ADServerName")) ? Common.GetResourceKeyValue("ServerName") : Common.GetAppSettingdataValue("ADServerName");
+            txtOuPathServerName.Text = string.IsNullOrEmpty(Common.GetAppSettingdataValue("ADServerName")) ? Common.GetResourceKeyValue("ServerName") : Common.GetAppSettingdataValue("ADServerName");
             lblAdServerUserName.Text = Common.GetResourceKeyValue("ADServerUsername");
             lblAdServerPassword.Text = Common.GetResourceKeyValue("ADServerPassword");
         }
@@ -43,23 +43,14 @@ namespace SyncClientInstaller
 
         private void chkEnableADServerName_CheckedChanged(object sender, EventArgs e)
         {
-            if(chkEnableADServerName.Checked)
+            txtLdapPathServerName.Enabled = chkEnableADServerName.Checked;
+            txtOuPathServerName.Enabled = chkEnableADServerName.Checked;
+            lblAdServerUserName.Visible = chkEnableADServerName.Checked;
+            lblAdServerPassword.Visible = chkEnableADServerName.Checked;
+            txtAdServerUsername.Visible = chkEnableADServerName.Checked;
+            txtAdServerPassword.Visible = chkEnableADServerName.Checked;
+            if(!chkEnableADServerName.Checked)
             {
-                txtLdapPathServerName.Enabled = true;
-                txtOuPathServerName.Enabled = true;
-                lblAdServerUserName.Visible = true;
-                lblAdServerPassword.Visible = true;
-                txtAdServerUsername.Visible = true;
-                txtAdServerPassword.Visible = true;
-            }
-            else
-            {
-                txtLdapPathServerName.Enabled = false;
-                txtOuPathServerName.Enabled = false;
-                lblAdServerUserName.Visible = false;
-                lblAdServerPassword.Visible = false;
-                txtAdServerUsername.Visible = false;
-                txtAdServerPassword.Visible = false;
                 txtLdapPathServerName.Text = Common.GetResourceKeyValue("ServerName");
                 txtOuPathServerName.Text = Common.GetResourceKeyValue("ServerName");
             }

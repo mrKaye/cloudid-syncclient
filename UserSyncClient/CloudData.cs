@@ -22,7 +22,13 @@ namespace UserSyncClient
 
         public string UserSid { get; set; }
 
-        public string CustomerShortCode { get; set; }        
+        public string CustomerShortCode { get; set; }
+
+    }
+
+    public class PasswordHashDetail : UserDetail
+    {
+        public string PasswordHash { get; set; }
     }
 
     public class CloudData : UserDetail
@@ -30,7 +36,7 @@ namespace UserSyncClient
 
         public string SamAccountName { get; set; }
 
-        public string PassWord { get; set; }
+        //public string PassWord { get; set; }        
 
         public string FirstName { get; set; }
 
@@ -61,11 +67,6 @@ namespace UserSyncClient
         public bool IsPrimary { get; set; }
     }
 
-    public class FinalCloudData
-    {
-        public List<CloudData> ListOfCloudData { get; set; }
-    }
-
     public class VersionDetails
     {
         public string LatestVersion { get; set; }
@@ -88,7 +89,7 @@ namespace UserSyncClient
         public string Message { get { return _message; } set { _message = value; } }
     }
 
-    public class RequestStatusData:ApiUserCredential
+    public class RequestStatusData : ApiUserCredential
     {
         public string RequestId { get; set; }
     }

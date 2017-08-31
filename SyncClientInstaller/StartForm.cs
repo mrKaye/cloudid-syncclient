@@ -49,6 +49,25 @@ namespace SyncClientInstaller
             ((SyncClientApp)this.MdiParent).lnkLblLDAPConfiguration.Text = Common.GetResourceKeyValue("LDAPConfiguration");
             ((SyncClientApp)this.MdiParent).lnkLblInstallationPath.Text = Common.GetResourceKeyValue("InstallationPath");
             ((SyncClientApp)this.MdiParent).lnkLblInstall.Text = Common.GetResourceKeyValue("Install");
+            AlignNavigationToCenter();
+        }
+
+        public void AlignNavigationToCenter()
+        {
+            List<LinkLabel> lnkLblControls = new List<LinkLabel>();
+            lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblWelcome);
+            lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblCustomerCode);
+            lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblUserDetails);
+            lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblLDAPConfiguration);
+            lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblCustomerEmail);
+            lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblInstallationPath);
+            lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblInstall);
+            foreach (var item in lnkLblControls)
+            {
+                item.Left = 0;
+                item.Left = (((SyncClientApp)this.MdiParent).pnlNavigation.Width - item.Width) / 2;
+            }
+            //return (pnlNavigation.Width - linkWidth) / 2;
         }
 
         private void frmWelcome_Load(object sender, EventArgs e)
@@ -74,7 +93,6 @@ namespace SyncClientInstaller
                 rbtnEnglish.Checked = false;
                 rbtnNorsk.Checked = true;
             }
-            //Common.GetAllUsers();
         }
     }
 }

@@ -56,16 +56,20 @@ namespace UserSyncClient
         /// <param name="data">data to update with respect to new or existing user</param>
         /// <param name="apiMethod">api method to invoke</param>
         /// <returns>bool</returns>
-        public bool AddUpdateUserToCloud(CloudData data, string apiMethod)
+        public bool AddUpdateUserToCloud(SecurityGroupUser userData, string apiMethod)
         {
             try
             {
+                CloudData data = BuildCloudData(userData);
                 if (data != null)
                 {
+                    bool isUserCreated = false;
                     var content = new JavaScriptSerializer().Serialize(data);
+                    
                     if (!string.IsNullOrEmpty(content))
                     {
                         string responseStr = GetAndCheckResponse(GetCloudRequest("POST", "application/json", apiMethod, content));
+
                         if (string.IsNullOrEmpty(responseStr))
                             return false;
                         if (responseStr == "failed")
@@ -75,17 +79,37 @@ namespace UserSyncClient
                                 return false;
                             if (retryResponseStr == "failed")
                             {
-                                return false;
+                                isUserCreated = false;
                             }
                             else
                             {
-                                return true;
+                                isUserCreated = true;
                             }
                         }
                         else
                         {
-                            return true;
+                            isUserCreated = true;
                         }
+                        //For setting password hash
+                        if (isUserCreated)
+                        {
+                            PasswordHashDetail userDetailsForPasswordHash = new PasswordHashDetail()
+                            {
+                                CustomerShortCode = data.CustomerShortCode,
+                                ApiUserName = data.ApiUserName,
+                                ApiPassWord = data.ApiPassWord,
+                                Upn = data.Upn,
+                                UserSid = data.UserSid,
+                                PasswordHash = userData.PasswordHash
+                            };
+                            var passwordHashContent = new JavaScriptSerializer().Serialize(userDetailsForPasswordHash);
+
+                            if (!string.IsNullOrEmpty(passwordHashContent))
+                            {
+                                GetAndCheckResponse(GetCloudRequest("POST", "application/json", "/api/User/setpasswordhash", passwordHashContent));
+                            }
+                        }
+                        return isUserCreated;
                     }
                     return false;
                 }
@@ -157,7 +181,8 @@ namespace UserSyncClient
                 if (!string.IsNullOrEmpty(str))
                 {
                     var jsonResponse = Json.Decode(str);
-                    return CheckRequestStatus(jsonResponse.ResponseId);
+                    if (!string.IsNullOrEmpty(jsonResponse.ResponseId))
+                        return CheckRequestStatus(jsonResponse.ResponseId);
                 }
             }
             catch (WebException ex)
@@ -257,6 +282,7 @@ namespace UserSyncClient
             try
             {
                 response = (HttpWebResponse)request.GetResponse();
+
                 var encoding = ASCIIEncoding.ASCII;
 
                 using (var reader = new System.IO.StreamReader(response.GetResponseStream(), encoding))
@@ -297,7 +323,7 @@ namespace UserSyncClient
                         using (var reader = new StreamReader(errorResponse.GetResponseStream()))
                         {
                             var result = Json.Decode(reader.ReadToEnd());
-                            new ExceptionHandler(new Exception(result.Message));                            
+                            new ExceptionHandler(new Exception(result.Message));
                         }
                     }
                 }
@@ -333,6 +359,48 @@ namespace UserSyncClient
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// This method is used to get the metadata properties for the ad users.
+        /// </summary>
+        /// <param name="cloudUser">AD user object</param>
+        /// <returns>ad user metadata</returns>
+        static CloudData BuildCloudData(SecurityGroupUser cloudUser)
+        {
+            CloudData data = new CloudData();
+
+            if (ConfigurationManager.AppSettings["SyncOption"].ToLower() != "userprincipalname" && ConfigurationManager.AppSettings["SyncOption"].ToLower() != "mail")
+            {
+                throw new ApplicationException("Syncing option can be 'userPrincipalName' or 'mail'");
+            }
+            else if (ConfigurationManager.AppSettings["SyncOption"].ToLower() == "userprincipalname")
+            {
+                data.Upn = cloudUser.Upn;
+            }
+            else if (ConfigurationManager.AppSettings["SyncOption"].ToLower() == "mail")
+            {
+                if (cloudUser.EmailAddresses == null)
+                {
+                    return null;
+                }
+                data.Upn = cloudUser.EmailAddresses[0].Email;
+            }
+            data.CustomerShortCode = ConfigurationManager.AppSettings["CustomerShortCode"];
+            data.ApiUserName = ConfigurationManager.AppSettings["UserName"];
+            data.ApiPassWord = ConfigurationManager.AppSettings["Password"];
+            data.SamAccountName = cloudUser.SamAccountName;
+            data.Description = string.IsNullOrEmpty(cloudUser.Description) ? "" : cloudUser.Description;
+            data.FirstName = string.IsNullOrEmpty(cloudUser.FirstName) ? "" : cloudUser.FirstName;
+            data.LastName = string.IsNullOrEmpty(cloudUser.LastName) ? "" : cloudUser.LastName;
+            data.DisplayName = string.IsNullOrEmpty(cloudUser.DisplayName) ? "" : cloudUser.DisplayName;
+            data.UserSid = string.IsNullOrEmpty(cloudUser.Sid) ? "" : cloudUser.Sid;
+            data.EmailAddresses = (cloudUser.EmailAddresses == null || cloudUser.EmailAddresses.Length == 0) ? new EmailDetail[] { new EmailDetail() { Email = data.Upn, IsPrimary = true } } : cloudUser.EmailAddresses;
+            data.Telephone = string.IsNullOrEmpty(cloudUser.PhoneNumber) ? "" : cloudUser.PhoneNumber;
+            data.Zip = string.IsNullOrEmpty(cloudUser.ZipCode) ? "" : cloudUser.ZipCode;
+            data.City = string.IsNullOrEmpty(cloudUser.City) ? "" : cloudUser.City;
+            data.Street = string.IsNullOrEmpty(cloudUser.Street) ? "" : cloudUser.Street;
+            return data;
         }
     }
 }

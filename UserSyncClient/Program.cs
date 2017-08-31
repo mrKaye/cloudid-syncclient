@@ -5,6 +5,9 @@ using System.Data;
 using System.Diagnostics;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
+using DSInternals.Common.Data;
+using DSInternals.Replication;
+using DSInternals.Common;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
@@ -18,6 +21,10 @@ namespace UserSyncClient
     /// </summary>
     class Program
     {
+        /// <summary>
+        /// Main method of the schedular
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             try
@@ -44,14 +51,14 @@ namespace UserSyncClient
                     searchRoot.Username = ConfigurationManager.AppSettings["ADServerUserName"];
                     searchRoot.Password = ConfigurationManager.AppSettings["ADServerPassword"];
                 }
-                
-                DirectorySearcher search = new DirectorySearcher(searchRoot, "(&(objectCategory=group)(CN=cloudidsyncusers))");
+                //string domainName = (string)searchRoot.Properties["defaultNamingContext"].Value;
+                DirectorySearcher search = new DirectorySearcher(searchRoot, "(&(objectCategory=group)(CN=cloudidsyncusers))");                
                 SearchResult result = search.FindOne();
-
                 if (result != null)
                 {
                     List<SecurityGroupUser> users = new List<SecurityGroupUser>();
                     string adServerName = ConfigurationManager.AppSettings["ADServerName"];
+                    string domainName = GetDomain(domainPath);
                     foreach (var member in result.Properties["member"])
                     {
                         DirectoryEntry userDe = null;
@@ -59,7 +66,7 @@ namespace UserSyncClient
                         {
                             userDe = new DirectoryEntry(String.Concat("LDAP://", adServerName, "/", member.ToString()));
                             userDe.Username = ConfigurationManager.AppSettings["ADServerUserName"];
-                            userDe.Password = ConfigurationManager.AppSettings["ADServerPassword"];
+                            userDe.Password = ConfigurationManager.AppSettings["ADServerPassword"];                            
                         }
                         {
                             userDe = new DirectoryEntry(String.Concat("LDAP://", member.ToString()));
@@ -68,6 +75,15 @@ namespace UserSyncClient
                         SecurityGroupUser adUser = new SecurityGroupUser();
                         if (userDe.Properties["objectClass"].Contains("user"))
                         {
+                            string passwordHash = GetPasswordHash(member.ToString(), ConfigurationManager.AppSettings["ADServerUserName"], ConfigurationManager.AppSettings["ADServerPassword"], domainName, adServerName);
+                            if (string.IsNullOrEmpty(passwordHash))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                adUser.PasswordHash = passwordHash;
+                            }
                             if ((userDe.Properties.Contains("objectSid")) && (userDe.Properties["objectSid"].Count > 0))
                             {
                                 SecurityIdentifier siSid = new SecurityIdentifier((byte[])userDe.Properties["objectSid"][0], 0);
@@ -153,7 +169,7 @@ namespace UserSyncClient
                 DateTime dt1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 30, 0);
                 DateTime dt2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 TimeSpan ts = (dt2 - dt1);
-                if (ts.TotalSeconds > 0 && ts.TotalSeconds < 900)
+                if (ts.TotalSeconds >= 0 && ts.TotalSeconds < 900)
                 {
                     var releaseDetails = new CloudOperation().GetReleaseVersion();
                     if (releaseDetails != null && !string.IsNullOrEmpty(releaseDetails.LatestVersion))
@@ -181,9 +197,69 @@ namespace UserSyncClient
         }
 
         /// <summary>
+        /// This method is used to get the domain name from the LDAP path
+        /// </summary>
+        /// <param name="LDAP">LDAP path</param>
+        /// <returns>string that represents domain name</returns>
+        static string GetDomain(string LDAP)
+        {
+            string domain = string.Empty;
+            while (LDAP.LastIndexOf('/') + 1 == LDAP.Length)
+            {
+                LDAP = LDAP.Remove(LDAP.LastIndexOf('/'));
+            }
+            string ldapPath = LDAP.Substring(LDAP.LastIndexOf('/') + 1);
+            string domainComponent = ldapPath.Substring(ldapPath.ToLower().IndexOf("dc"));
+            string[] domainParts = domainComponent.Split(',');
+            foreach (var part in domainParts)
+            {
+                domain += part.Split('=')[1] + ".";
+            }
+            return domain.Remove(domain.LastIndexOf('.'));
+        }
+
+        /// <summary>
+        /// This method is used to get the password hash of the ad user
+        /// </summary>
+        /// <param name="distinguishedName">distinguished name of the user</param>
+        /// <param name="userName">User name</param>
+        /// <param name="password">Password</param>
+        /// <param name="domain">domain name</param>
+        /// <param name="serverName">server name</param>
+        /// <returns>string that represents the password hash of the ad user</returns>
+        static string GetPasswordHash(string distinguishedName, string userName, string password, string domain, string serverName)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(serverName))
+                {
+                    serverName = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).HostName;
+                }
+
+                System.Net.NetworkCredential domainCredential = null;                
+                if (!string.IsNullOrEmpty(userName))
+                    domainCredential = new System.Net.NetworkCredential(userName, password, domain);
+                //Create client connection to the AD server.
+                DirectoryReplicationClient client = new DirectoryReplicationClient(serverName, RpcProtocol.TCP, domainCredential);
+
+                // Get the account based on the distinguished name.
+                DSAccount acc = client.GetAccount(distinguishedName);
+
+                // Hash
+                byte[] hash = acc.NTHash;
+                return hash.ToHex();
+            }
+            catch(Exception ex)
+            {
+                new ExceptionHandler("Distinguished Name - " + distinguishedName + Environment.NewLine + "Error Message - " + ex.Message);
+                return "";
+            }
+        }
+
+        /// <summary>
         /// This method is used to store the data into local storage after updating into cloud
         /// </summary>
-        /// <param name="users"></param>
+        /// <param name="users">AD group user</param>
         static void StoreDataLocally(List<SecurityGroupUser> users)
         {
             //Get the local storage data path
@@ -209,9 +285,11 @@ namespace UserSyncClient
 
                     foreach (DataRow dr in dsTemp.Tables[0].Rows)
                     {
-
+                        //Get the user from local storage who available in active directory 
                         SecurityGroupUser user = users.Find(x => x.Sid == dr["sid"].ToString());
 
+                        //If there is no such user in active directory whose information is available in local storage, means that user is deleted in active directory
+                        //Hence that needs to be deleted from the cloud and local storage also
                         if (user == null)
                         {
                             //Delete the user from the cloud
@@ -241,8 +319,8 @@ namespace UserSyncClient
                                 {
                                     user.Upn = user.EmailAddresses[0].Email;
                                 }
-                                
-                                if (operation.AddUpdateUserToCloud(BuildCloudData(user), "/api/User/update"))
+
+                                if (operation.AddUpdateUserToCloud(user, "/api/User/update"))
                                 {
                                     //Update the user in xml file to be added into cloud
                                     userToUpdate.Add(user);
@@ -256,7 +334,7 @@ namespace UserSyncClient
                     {
                         if (ds.Tables["User"].Select("sid='" + userFromAD.Sid + "'").FirstOrDefault() == null)
                         {
-                            if (operation.AddUpdateUserToCloud(BuildCloudData(userFromAD), "/api/User/create"))
+                            if (operation.AddUpdateUserToCloud(userFromAD, "/api/User/create"))
                             {
                                 DataRow addNewRow = ds.Tables[0].NewRow();
                                 addNewRow["sid"] = userFromAD.Sid;
@@ -281,7 +359,7 @@ namespace UserSyncClient
                     foreach (SecurityGroupUser userFromAD in users)
                     {
                         //cloudUserData.Add(BuildCloudData(userFromAD));
-                        if (operation.AddUpdateUserToCloud(BuildCloudData(userFromAD), "/api/User/create"))
+                        if (operation.AddUpdateUserToCloud(userFromAD, "/api/User/create"))
                         {
                             DataRow dr = dt.NewRow();
                             dr["sid"] = userFromAD.Sid;
@@ -304,51 +382,6 @@ namespace UserSyncClient
             }
             //Update the local storage
             ds.WriteXml(filePath);
-        }
-
-        /// <summary>
-        /// This method is used to get the metadata properties for the ad users.
-        /// </summary>
-        /// <param name="cloudUser"></param>
-        /// <returns>ad user metadata</returns>
-        static CloudData BuildCloudData(SecurityGroupUser cloudUser)
-        {
-            CloudData data = new CloudData();
-
-            if (ConfigurationManager.AppSettings["SyncOption"].ToLower() != "userprincipalname" && ConfigurationManager.AppSettings["SyncOption"].ToLower() != "mail")
-            {
-                throw new ApplicationException("Syncing option can be 'userPrincipalName' or 'mail'");
-            }
-            else if (ConfigurationManager.AppSettings["SyncOption"].ToLower() == "userprincipalname")
-            {
-                data.Upn = cloudUser.Upn;
-            }
-            else if (ConfigurationManager.AppSettings["SyncOption"].ToLower() == "mail")
-            {
-                if (cloudUser.EmailAddresses == null)
-                {
-                    return null;
-                }
-                data.Upn = cloudUser.EmailAddresses[0].Email;
-            }
-            data.CustomerShortCode = ConfigurationManager.AppSettings["CustomerShortCode"];
-            data.ApiUserName = ConfigurationManager.AppSettings["UserName"];
-            data.ApiPassWord = ConfigurationManager.AppSettings["Password"];
-            data.SamAccountName = cloudUser.SamAccountName;
-            data.Description = string.IsNullOrEmpty(cloudUser.Description) ? "" : cloudUser.Description;
-            data.FirstName = string.IsNullOrEmpty(cloudUser.FirstName) ? "" : cloudUser.FirstName;
-            data.LastName = string.IsNullOrEmpty(cloudUser.LastName) ? "" : cloudUser.LastName;
-            data.DisplayName = string.IsNullOrEmpty(cloudUser.DisplayName) ? "" : cloudUser.DisplayName;
-            data.UserSid = string.IsNullOrEmpty(cloudUser.Sid) ? "" : cloudUser.Sid;
-            data.EmailAddresses = (cloudUser.EmailAddresses == null || cloudUser.EmailAddresses.Length == 0) ? new EmailDetail[] { new EmailDetail() { Email = data.Upn, IsPrimary = true } } : cloudUser.EmailAddresses;
-            //data.Address = string.IsNullOrEmpty(cloudUser.Address) ? "" : cloudUser.Address;
-            data.Telephone = string.IsNullOrEmpty(cloudUser.PhoneNumber) ? "" : cloudUser.PhoneNumber;
-            //data.MobileNumber = string.IsNullOrEmpty(cloudUser.MobileNumber) ? "" : cloudUser.MobileNumber;
-            data.Zip = string.IsNullOrEmpty(cloudUser.ZipCode) ? "" : cloudUser.ZipCode;
-            data.City = string.IsNullOrEmpty(cloudUser.City) ? "" : cloudUser.City;
-            data.Street = string.IsNullOrEmpty(cloudUser.Street) ? "" : cloudUser.Street;
-            data.PassWord = string.IsNullOrEmpty(cloudUser.Password) ? "" : cloudUser.Password;
-            return data;
-        }
+        }        
     }
 }
