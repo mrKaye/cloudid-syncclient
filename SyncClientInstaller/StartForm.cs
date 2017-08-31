@@ -93,7 +93,6 @@ namespace SyncClientInstaller
                 rbtnEnglish.Checked = false;
                 rbtnNorsk.Checked = true;
             }
-            //Common.GetAllUsers();
         }
     }
 }

@@ -80,7 +80,7 @@
             // 
             this.lnkLblLDAPConfiguration.AutoSize = true;
             this.lnkLblLDAPConfiguration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(57)))), ((int)(((byte)(84)))));
-            this.lnkLblLDAPConfiguration.Enabled = false;
+            this.lnkLblLDAPConfiguration.DisabledLinkColor = System.Drawing.Color.DarkSalmon;
             this.lnkLblLDAPConfiguration.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblLDAPConfiguration.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblLDAPConfiguration.LinkColor = System.Drawing.Color.White;
@@ -97,7 +97,7 @@
             // 
             this.lnkLblCustomerEmail.AutoSize = true;
             this.lnkLblCustomerEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(57)))), ((int)(((byte)(84)))));
-            this.lnkLblCustomerEmail.Enabled = false;
+            this.lnkLblCustomerEmail.DisabledLinkColor = System.Drawing.Color.DarkSalmon;
             this.lnkLblCustomerEmail.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblCustomerEmail.ForeColor = System.Drawing.Color.White;
             this.lnkLblCustomerEmail.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
@@ -115,7 +115,7 @@
             // 
             this.lnkLblInstall.AutoSize = true;
             this.lnkLblInstall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(57)))), ((int)(((byte)(84)))));
-            this.lnkLblInstall.Enabled = false;
+            this.lnkLblInstall.DisabledLinkColor = System.Drawing.Color.DarkSalmon;
             this.lnkLblInstall.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblInstall.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblInstall.LinkColor = System.Drawing.Color.White;
@@ -132,7 +132,7 @@
             // 
             this.lnkLblInstallationPath.AutoSize = true;
             this.lnkLblInstallationPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(57)))), ((int)(((byte)(84)))));
-            this.lnkLblInstallationPath.Enabled = false;
+            this.lnkLblInstallationPath.DisabledLinkColor = System.Drawing.Color.DarkSalmon;
             this.lnkLblInstallationPath.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblInstallationPath.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblInstallationPath.LinkColor = System.Drawing.Color.White;
@@ -149,7 +149,7 @@
             // 
             this.lnkLblUserDetails.AutoSize = true;
             this.lnkLblUserDetails.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(57)))), ((int)(((byte)(84)))));
-            this.lnkLblUserDetails.Enabled = false;
+            this.lnkLblUserDetails.DisabledLinkColor = System.Drawing.Color.DarkSalmon;
             this.lnkLblUserDetails.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblUserDetails.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblUserDetails.LinkColor = System.Drawing.Color.White;
@@ -166,7 +166,7 @@
             // 
             this.lnkLblCustomerCode.AutoSize = true;
             this.lnkLblCustomerCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(57)))), ((int)(((byte)(84)))));
-            this.lnkLblCustomerCode.Enabled = false;
+            this.lnkLblCustomerCode.DisabledLinkColor = System.Drawing.Color.DarkSalmon;
             this.lnkLblCustomerCode.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblCustomerCode.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblCustomerCode.LinkColor = System.Drawing.Color.White;
@@ -183,6 +183,7 @@
             // 
             this.lnkLblWelcome.AutoSize = true;
             this.lnkLblWelcome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(57)))), ((int)(((byte)(84)))));
+            this.lnkLblWelcome.DisabledLinkColor = System.Drawing.Color.DarkSalmon;
             this.lnkLblWelcome.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblWelcome.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblWelcome.LinkColor = System.Drawing.Color.White;

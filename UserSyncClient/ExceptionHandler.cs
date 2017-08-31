@@ -17,7 +17,6 @@ namespace UserSyncClient
         public ExceptionHandler(string message)
             : base(message)
         {
-            System.IO.File.WriteAllText(@"D:\Data\23-August-17\Data\json13.txt", message);
             if (!EventLog.SourceExists("Application", MachineName))
             {
                 EventLog.CreateEventSource(new EventSourceCreationData("EVRY", "Application"));
@@ -29,7 +28,6 @@ namespace UserSyncClient
         public ExceptionHandler(Exception ex)
             : base(ex.Message, ex)
         {
-            System.IO.File.AppendAllText(@"D:\Data\23-August-17\Data\json12.txt", ex.Message + Environment.NewLine + ex.StackTrace);
             //sourcename:Application
             //ViewerName:EVRY
             if (!EventLog.SourceExists("Application", MachineName))

@@ -41,11 +41,11 @@ namespace SyncClientInstaller
             LocalizeText();
             btnBack.Enabled = false;
             InitialConfiguration();
+            EnableDsableLinks(false);
+            lnkLblWelcome.Links[0].Enabled = true;
             if (Common.GetPreviousAppSettings() != null)
             {
-                EnableDsableLinks(false);
-                lnkLblWelcome.Enabled = true;
-                lnkLblInstall.Enabled = true;
+                lnkLblInstall.Links[0].Enabled = true;
                 GlobalData.InstallationPath = System.IO.Directory.GetParent(System.IO.Path.GetDirectoryName(Scheduler.GetScheduledTaskPath("SyncClientApp"))).FullName;
             }
         }
@@ -226,7 +226,7 @@ namespace SyncClientInstaller
                     case "CustomerValidation":
                         Common.AddAppSettingData("ApiBaseUrl", ConfigurationManager.AppSettings["ApiBaseUrl"]);
                         ((frmWelcome)this.MdiChildren[0]).Close();
-                        lnkLblCustomerCode.Enabled = true;
+                        lnkLblCustomerCode.Links[0].Enabled = true;
                         FormDetail.OpenCustomerShortCodeForm();
                         break;
                     case "UserDetails":
@@ -259,7 +259,7 @@ namespace SyncClientInstaller
                         Common.AddAppSettingData("ApiKey", ((CustomerValidation)this.MdiChildren[0]).txtApiKey.Text.Trim());
                         //Closing the current form and opening the new one
                         ((CustomerValidation)this.MdiChildren[0]).Close();
-                        lnkLblUserDetails.Enabled = true;
+                        lnkLblUserDetails.Links[0].Enabled = true;
                         FormDetail.OpenUserDetailsForm();
                         break;
                     case "LDAPPath":
@@ -296,7 +296,7 @@ namespace SyncClientInstaller
                         Common.AddAppSettingData("Password", ((UserDetails)this.MdiChildren[0]).txtPassword.Text.Trim());
                         //Open the new form
                         ((UserDetails)this.MdiChildren[0]).Close();
-                        lnkLblLDAPConfiguration.Enabled = true;
+                        lnkLblLDAPConfiguration.Links[0].Enabled = true;
                         FormDetail.OpenLDAPPathForm();
                         break;
                     case "CustomerEmail":
@@ -387,7 +387,7 @@ namespace SyncClientInstaller
                         GlobalData.OUString = ((LDAPPath)this.MdiChildren[0]).txtLDAPSecurityGroup.Text.Trim();
                         //Open the new form
                         ((LDAPPath)this.MdiChildren[0]).Close();
-                        lnkLblCustomerEmail.Enabled = true;
+                        lnkLblCustomerEmail.Links[0].Enabled = true;
                         FormDetail.OpenCustomerEmailForm();
                         break;
                     case "InstallationPath":
@@ -404,7 +404,7 @@ namespace SyncClientInstaller
                         }
                         Common.AddAppSettingData("NotificationEmail", ((CustomerEmail)this.MdiChildren[0]).txtCustomerEmail.Text.Trim());
                         ((CustomerEmail)this.MdiChildren[0]).Close();
-                        lnkLblInstallationPath.Enabled = true;
+                        lnkLblInstallationPath.Links[0].Enabled = true;
                         FormDetail.OpenInstallationPathForm();
                         break;
                     case "Install":
@@ -421,7 +421,7 @@ namespace SyncClientInstaller
                                 return;
                             }
                             ((InstallationPath)this.MdiChildren[0]).Close();
-                            lnkLblInstall.Enabled = true;
+                            lnkLblInstall.Links[0].Enabled = true;
                         }
                         else
                         {
@@ -531,13 +531,13 @@ namespace SyncClientInstaller
         /// <param name="isEnable"></param>
         private void EnableDsableLinks(bool isEnable)
         {
-            lnkLblWelcome.Enabled = isEnable;
-            lnkLblCustomerCode.Enabled = isEnable;
-            lnkLblUserDetails.Enabled = isEnable;
-            lnkLblLDAPConfiguration.Enabled = isEnable;
-            lnkLblCustomerEmail.Enabled = isEnable;
-            lnkLblInstallationPath.Enabled = isEnable;
-            lnkLblInstall.Enabled = isEnable;
+            lnkLblWelcome.Links[0].Enabled = isEnable;
+            lnkLblCustomerCode.Links[0].Enabled = isEnable;
+            lnkLblUserDetails.Links[0].Enabled = isEnable;
+            lnkLblLDAPConfiguration.Links[0].Enabled = isEnable;
+            lnkLblCustomerEmail.Links[0].Enabled = isEnable;
+            lnkLblInstallationPath.Links[0].Enabled = isEnable;
+            lnkLblInstall.Links[0].Enabled = isEnable;
         }
         /// <summary>
         /// This method is used for installation of the job
