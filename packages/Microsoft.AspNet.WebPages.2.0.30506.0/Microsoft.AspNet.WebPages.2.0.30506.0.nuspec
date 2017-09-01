@@ -8,7 +8,7 @@
     <owners>Microsoft</owners>
     <licenseUrl>http://www.microsoft.com/web/webpi/eula/webpages_2_eula_enu.htm</licenseUrl>
     <projectUrl>http://www.asp.net/web-pages</projectUrl>
-    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This package contains core runtime assemblies shared between ASP.NET MVC and ASP.NET Web Pages.</description>
     <summary />
     <language>en-US</language>

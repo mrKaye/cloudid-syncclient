@@ -52,10 +52,10 @@ namespace SyncClientInstaller
         }
 
         private static string _backFormName;
-        public static string BackFormName 
-        { 
-            get { return _backFormName; } 
-            set { _backFormName = value; } 
+        public static string BackFormName
+        {
+            get { return _backFormName; }
+            set { _backFormName = value; }
         }
 
         private static string _nextFormName;
@@ -66,10 +66,10 @@ namespace SyncClientInstaller
         }
 
         private static int _linkNumber;
-        public static int LinkNumber 
-        { 
-            get { return _linkNumber; } 
-            set { _linkNumber = value; } 
+        public static int LinkNumber
+        {
+            get { return _linkNumber; }
+            set { _linkNumber = value; }
         }
 
         private static bool _isInstallationSuccess;
@@ -80,24 +80,24 @@ namespace SyncClientInstaller
         }
 
         private static string _ouPath;
-        public static string OUPath 
+        public static string OUPath
         {
             get { return _ouPath; }
             set { _ouPath = value; }
         }
 
         private static bool _isCheckBoxChecked;
-        public static bool IsCheckBoxChecked 
-        { 
-            get { return _isCheckBoxChecked; } 
-            set { _isCheckBoxChecked = value; } 
+        public static bool IsCheckBoxChecked
+        {
+            get { return _isCheckBoxChecked; }
+            set { _isCheckBoxChecked = value; }
         }
 
         private static string _ldapString;
-        public static string LdapString 
+        public static string LdapString
         {
             get { return _ldapString; }
-            set { _ldapString = value; } 
+            set { _ldapString = value; }
         }
 
         private static string _ouString;

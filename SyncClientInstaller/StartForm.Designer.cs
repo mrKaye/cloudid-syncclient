@@ -70,7 +70,7 @@
             this.rbtnEnglish.Image = ((System.Drawing.Image)(resources.GetObject("rbtnEnglish.Image")));
             this.rbtnEnglish.Location = new System.Drawing.Point(323, 206);
             this.rbtnEnglish.Name = "rbtnEnglish";
-            this.rbtnEnglish.Size = new System.Drawing.Size(122, 30);
+            this.rbtnEnglish.Size = new System.Drawing.Size(105, 32);
             this.rbtnEnglish.TabIndex = 2;
             this.rbtnEnglish.Text = "English";
             this.rbtnEnglish.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -86,7 +86,7 @@
             this.rbtnNorsk.Image = ((System.Drawing.Image)(resources.GetObject("rbtnNorsk.Image")));
             this.rbtnNorsk.Location = new System.Drawing.Point(494, 206);
             this.rbtnNorsk.Name = "rbtnNorsk";
-            this.rbtnNorsk.Size = new System.Drawing.Size(111, 30);
+            this.rbtnNorsk.Size = new System.Drawing.Size(94, 32);
             this.rbtnNorsk.TabIndex = 1;
             this.rbtnNorsk.TabStop = true;
             this.rbtnNorsk.Text = "Norsk";
