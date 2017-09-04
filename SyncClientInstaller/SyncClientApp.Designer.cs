@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SyncClientApp));
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlNavigation = new System.Windows.Forms.Panel();
+            this.lnkLblSyncOption = new System.Windows.Forms.LinkLabel();
             this.lnkLblLDAPConfiguration = new System.Windows.Forms.LinkLabel();
             this.lnkLblCustomerEmail = new System.Windows.Forms.LinkLabel();
             this.lnkLblInstall = new System.Windows.Forms.LinkLabel();
@@ -64,6 +65,7 @@
             // 
             // pnlNavigation
             // 
+            this.pnlNavigation.Controls.Add(this.lnkLblSyncOption);
             this.pnlNavigation.Controls.Add(this.lnkLblLDAPConfiguration);
             this.pnlNavigation.Controls.Add(this.lnkLblCustomerEmail);
             this.pnlNavigation.Controls.Add(this.lnkLblInstall);
@@ -76,6 +78,23 @@
             this.pnlNavigation.Size = new System.Drawing.Size(155, 206);
             this.pnlNavigation.TabIndex = 5;
             // 
+            // lnkLblSyncOption
+            // 
+            this.lnkLblSyncOption.AutoSize = true;
+            this.lnkLblSyncOption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(57)))), ((int)(((byte)(84)))));
+            this.lnkLblSyncOption.DisabledLinkColor = System.Drawing.Color.DarkSalmon;
+            this.lnkLblSyncOption.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkLblSyncOption.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lnkLblSyncOption.LinkColor = System.Drawing.Color.White;
+            this.lnkLblSyncOption.Location = new System.Drawing.Point(0, 82);
+            this.lnkLblSyncOption.Name = "lnkLblSyncOption";
+            this.lnkLblSyncOption.Size = new System.Drawing.Size(75, 15);
+            this.lnkLblSyncOption.TabIndex = 4;
+            this.lnkLblSyncOption.TabStop = true;
+            this.lnkLblSyncOption.Text = "Sync Option";
+            this.lnkLblSyncOption.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lnkLblSyncOption.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLblSyncOption_LinkClicked);
+            // 
             // lnkLblLDAPConfiguration
             // 
             this.lnkLblLDAPConfiguration.AutoSize = true;
@@ -84,7 +103,7 @@
             this.lnkLblLDAPConfiguration.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblLDAPConfiguration.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblLDAPConfiguration.LinkColor = System.Drawing.Color.White;
-            this.lnkLblLDAPConfiguration.Location = new System.Drawing.Point(0, 95);
+            this.lnkLblLDAPConfiguration.Location = new System.Drawing.Point(0, 103);
             this.lnkLblLDAPConfiguration.Name = "lnkLblLDAPConfiguration";
             this.lnkLblLDAPConfiguration.Size = new System.Drawing.Size(117, 15);
             this.lnkLblLDAPConfiguration.TabIndex = 10;
@@ -102,7 +121,7 @@
             this.lnkLblCustomerEmail.ForeColor = System.Drawing.Color.White;
             this.lnkLblCustomerEmail.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblCustomerEmail.LinkColor = System.Drawing.Color.White;
-            this.lnkLblCustomerEmail.Location = new System.Drawing.Point(0, 121);
+            this.lnkLblCustomerEmail.Location = new System.Drawing.Point(0, 124);
             this.lnkLblCustomerEmail.Name = "lnkLblCustomerEmail";
             this.lnkLblCustomerEmail.Size = new System.Drawing.Size(97, 15);
             this.lnkLblCustomerEmail.TabIndex = 12;
@@ -119,7 +138,7 @@
             this.lnkLblInstall.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblInstall.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblInstall.LinkColor = System.Drawing.Color.White;
-            this.lnkLblInstall.Location = new System.Drawing.Point(0, 172);
+            this.lnkLblInstall.Location = new System.Drawing.Point(0, 166);
             this.lnkLblInstall.Name = "lnkLblInstall";
             this.lnkLblInstall.Size = new System.Drawing.Size(41, 15);
             this.lnkLblInstall.TabIndex = 17;
@@ -136,7 +155,7 @@
             this.lnkLblInstallationPath.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblInstallationPath.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblInstallationPath.LinkColor = System.Drawing.Color.White;
-            this.lnkLblInstallationPath.Location = new System.Drawing.Point(0, 147);
+            this.lnkLblInstallationPath.Location = new System.Drawing.Point(0, 145);
             this.lnkLblInstallationPath.Name = "lnkLblInstallationPath";
             this.lnkLblInstallationPath.Size = new System.Drawing.Size(98, 15);
             this.lnkLblInstallationPath.TabIndex = 16;
@@ -153,7 +172,7 @@
             this.lnkLblUserDetails.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblUserDetails.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblUserDetails.LinkColor = System.Drawing.Color.White;
-            this.lnkLblUserDetails.Location = new System.Drawing.Point(0, 70);
+            this.lnkLblUserDetails.Location = new System.Drawing.Point(0, 61);
             this.lnkLblUserDetails.Name = "lnkLblUserDetails";
             this.lnkLblUserDetails.Size = new System.Drawing.Size(76, 15);
             this.lnkLblUserDetails.TabIndex = 15;
@@ -170,7 +189,7 @@
             this.lnkLblCustomerCode.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkLblCustomerCode.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lnkLblCustomerCode.LinkColor = System.Drawing.Color.White;
-            this.lnkLblCustomerCode.Location = new System.Drawing.Point(0, 44);
+            this.lnkLblCustomerCode.Location = new System.Drawing.Point(0, 40);
             this.lnkLblCustomerCode.Name = "lnkLblCustomerCode";
             this.lnkLblCustomerCode.Size = new System.Drawing.Size(95, 15);
             this.lnkLblCustomerCode.TabIndex = 14;
@@ -307,6 +326,7 @@
         internal System.Windows.Forms.LinkLabel lnkLblUserDetails;
         internal System.Windows.Forms.LinkLabel lnkLblCustomerCode;
         internal System.Windows.Forms.LinkLabel lnkLblWelcome;
+        internal System.Windows.Forms.LinkLabel lnkLblSyncOption;
 
     }
 }

@@ -52,7 +52,6 @@ namespace SyncClientInstaller
 
         private void InitialConfiguration()
         {
-            Common.AddAppSettingData("SyncOption", "userPrincipalName");
             Common.AddAppSettingData("Version", System.Reflection.Assembly.GetAssembly(typeof(SyncClientApp)).GetName().Version.ToString());
             Common.AddAppSettingData("sAMAccountName", "true");
             Common.AddAppSettingData("displayName", "true");
@@ -153,8 +152,12 @@ namespace SyncClientInstaller
                         FormDetail.OpenCustomerShortCodeForm();
                         break;
                     case "UserDetails":
-                        ((LDAPPath)this.MdiChildren[0]).Close();
+                        ((SyncOption)this.MdiChildren[0]).Close();
                         FormDetail.OpenUserDetailsForm();
+                        break;
+                    case "SyncOption":
+                        ((LDAPPath)this.MdiChildren[0]).Close();
+                        FormDetail.OpenSyncOptionForm();
                         break;
                     case "LDAPPath":
                         ((CustomerEmail)this.MdiChildren[0]).Close();
@@ -262,7 +265,7 @@ namespace SyncClientInstaller
                         lnkLblUserDetails.Links[0].Enabled = true;
                         FormDetail.OpenUserDetailsForm();
                         break;
-                    case "LDAPPath":
+                    case "SyncOption":
                         dictionaryTextbox = new Dictionary<TextBox, string>();
                         dictionaryTextbox.Add(((UserDetails)this.MdiChildren[0]).txtUserName, Common.GetResourceKeyValue("UsernameValidationMsg"));
                         dictionaryTextbox.Add(((UserDetails)this.MdiChildren[0]).txtPassword, Common.GetResourceKeyValue("PasswordValidationMsg"));
@@ -296,6 +299,19 @@ namespace SyncClientInstaller
                         Common.AddAppSettingData("Password", ((UserDetails)this.MdiChildren[0]).txtPassword.Text.Trim());
                         //Open the new form
                         ((UserDetails)this.MdiChildren[0]).Close();
+                        lnkLblSyncOption.Links[0].Enabled = true;
+                        FormDetail.OpenSyncOptionForm();
+                        break;
+                    case "LDAPPath":
+                        if (((SyncOption)this.MdiChildren[0]).rbtnUPN.Checked)
+                        {
+                            Common.AddAppSettingData("SyncOption", "userPrincipalName");
+                        }
+                        else
+                        {
+                            Common.AddAppSettingData("SyncOption", "mail");
+                        }
+                        ((SyncOption)this.MdiChildren[0]).Close();
                         lnkLblLDAPConfiguration.Links[0].Enabled = true;
                         FormDetail.OpenLDAPPathForm();
                         break;
@@ -534,6 +550,7 @@ namespace SyncClientInstaller
             lnkLblWelcome.Links[0].Enabled = isEnable;
             lnkLblCustomerCode.Links[0].Enabled = isEnable;
             lnkLblUserDetails.Links[0].Enabled = isEnable;
+            lnkLblSyncOption.Links[0].Enabled = isEnable;
             lnkLblLDAPConfiguration.Links[0].Enabled = isEnable;
             lnkLblCustomerEmail.Links[0].Enabled = isEnable;
             lnkLblInstallationPath.Links[0].Enabled = isEnable;
@@ -619,13 +636,13 @@ namespace SyncClientInstaller
                     FormDetail.OpenWelcomeForm();
                     break;
                 case 2:
-                    FormDetail.OpenApiKeyForm();
-                    break;
-                case 3:
                     FormDetail.OpenCustomerShortCodeForm();
                     break;
-                case 4:
+                case 3:
                     FormDetail.OpenUserDetailsForm();
+                    break;
+                case 4:
+                    FormDetail.OpenSyncOptionForm();
                     break;
                 case 5:
                     FormDetail.OpenLDAPPathForm();
@@ -676,15 +693,25 @@ namespace SyncClientInstaller
         /// <param name="e"></param>
         private void lnkLblCustomerCode_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            CloseAllChildForm(3);
+            CloseAllChildForm(2);
         }
-
+        
         /// <summary>
         /// click event for user details link button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void lnkLblUserDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            CloseAllChildForm(3);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lnkLblSyncOption_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             CloseAllChildForm(4);
         }

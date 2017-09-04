@@ -318,4 +318,16 @@
   <data name="ServerUserNameRequired" xml:space="preserve">
     <value>Server brukernavn kan ikke være tomt. Vennligst oppgi et gyldig brukernavn.</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-Post</value>
+  </data>
+  <data name="SyncOptionAvailability" xml:space="preserve">
+    <value>Synkronisere med</value>
+  </data>
+  <data name="SyncOptionDescription" xml:space="preserve">
+    <value>Hvordan vil du at brukerne i AD skal synkronisere med sky? Brukerne i AD kan synkroniseres på to måter: via e-post eller av UPN. Vennligst velg Synkroniseringsalternativet.</value>
+  </data>
+  <data name="SyncOptionHeading" xml:space="preserve">
+    <value>Synkronisering Alternativ</value>
+  </data>
 </root>

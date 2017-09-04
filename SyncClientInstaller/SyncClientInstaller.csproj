@@ -25,7 +25,7 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <MinimumRequiredVersion>0.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>71</ApplicationRevision>
+    <ApplicationRevision>73</ApplicationRevision>
     <ApplicationVersion>0.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -169,12 +169,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APIKeyValidator.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="APIKeyValidator.Designer.cs">
-      <DependentUpon>APIKeyValidator.cs</DependentUpon>
-    </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="CustomerEmail.cs">
       <SubType>Form</SubType>
@@ -234,15 +228,18 @@
     <Compile Include="SyncClientApp.Designer.cs">
       <DependentUpon>SyncClientApp.cs</DependentUpon>
     </Compile>
+    <Compile Include="SyncOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SyncOption.Designer.cs">
+      <DependentUpon>SyncOption.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserDetails.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserDetails.Designer.cs">
       <DependentUpon>UserDetails.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="APIKeyValidator.resx">
-      <DependentUpon>APIKeyValidator.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CustomerEmail.resx">
       <DependentUpon>CustomerEmail.cs</DependentUpon>
     </EmbeddedResource>
@@ -281,6 +278,9 @@
     </Compile>
     <EmbeddedResource Include="SyncClientApp.resx">
       <DependentUpon>SyncClientApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncOption.resx">
+      <DependentUpon>SyncOption.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDetails.resx">
       <DependentUpon>UserDetails.cs</DependentUpon>

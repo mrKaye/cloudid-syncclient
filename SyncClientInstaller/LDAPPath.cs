@@ -37,7 +37,7 @@ namespace SyncClientInstaller
         {
             //Loading the form with localized data
             LocalizeText();
-            GlobalData.BackFormName = "UserDetails";
+            GlobalData.BackFormName = "SyncOption";
             GlobalData.NextFormName = "CustomerEmail";
         }
 
