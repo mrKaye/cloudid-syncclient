@@ -36,7 +36,7 @@ namespace SyncClientInstaller
             //Set the form data
             LocalizeText();
             GlobalData.BackFormName = "CustomerValidation";
-            GlobalData.NextFormName = "LDAPPath";
+            GlobalData.NextFormName = "SyncOption";
         }
     }
 }

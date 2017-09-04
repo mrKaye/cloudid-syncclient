@@ -318,4 +318,16 @@
   <data name="ServerUserNameRequired" xml:space="preserve">
     <value>Server username cannot be empty. Please provide a valid username.</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="SyncOptionAvailability" xml:space="preserve">
+    <value>Sync using</value>
+  </data>
+  <data name="SyncOptionDescription" xml:space="preserve">
+    <value>How would you like the users in AD to sync with cloud? The users in AD can be synced by two ways : by Email or by UPN. Please select the Syncing option.</value>
+  </data>
+  <data name="SyncOptionHeading" xml:space="preserve">
+    <value>Syncing Option</value>
+  </data>
 </root>

@@ -58,6 +58,7 @@ namespace SyncClientInstaller
             lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblWelcome);
             lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblCustomerCode);
             lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblUserDetails);
+            lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblSyncOption);
             lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblLDAPConfiguration);
             lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblCustomerEmail);
             lnkLblControls.Add(((SyncClientApp)this.MdiParent).lnkLblInstallationPath);

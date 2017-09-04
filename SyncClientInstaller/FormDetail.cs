@@ -17,15 +17,6 @@ namespace SyncClientInstaller
             welcomeFrm.Show();
         }
 
-        public static void OpenApiKeyForm()
-        {
-            APIKeyValidator apiKeyFrm = new APIKeyValidator();
-            apiKeyFrm.MdiParent = GlobalData.FrmName;
-            apiKeyFrm.Dock = DockStyle.Fill;
-            apiKeyFrm.txtApiKey.Text = string.IsNullOrEmpty(Common.GetAppSettingdataValue("ApiKey")) ? "" : Common.GetAppSettingdataValue("ApiKey");
-            apiKeyFrm.Show();
-        }
-
         public static void OpenCustomerShortCodeForm()
         {
             CustomerValidation custFrm = new CustomerValidation();
@@ -53,6 +44,14 @@ namespace SyncClientInstaller
             userFrm.txtUserName.Text = string.IsNullOrEmpty(Common.GetAppSettingdataValue("UserName")) ? "" : Common.GetAppSettingdataValue("UserName");
             userFrm.txtPassword.Text = string.IsNullOrEmpty(Common.GetAppSettingdataValue("Password")) ? "" : Common.GetAppSettingdataValue("Password");
             userFrm.Show();
+        }
+
+        public static void OpenSyncOptionForm()
+        {
+            SyncOption syncOptionFrm = new SyncOption();
+            syncOptionFrm.MdiParent = GlobalData.FrmName;
+            syncOptionFrm.Dock = DockStyle.Fill;
+            syncOptionFrm.Show();
         }
 
         public static void OpenLDAPPathForm()
