@@ -380,8 +380,11 @@ namespace UserSyncClient
             {
                 new ExceptionHandler(ex);
             }
-            //Update the local storage
-            ds.WriteXml(filePath);
+            finally
+            {
+                //Update the local storage
+                ds.WriteXml(filePath);
+            }
         }        
     }
 }
