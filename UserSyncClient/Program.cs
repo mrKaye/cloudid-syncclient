@@ -52,7 +52,7 @@ namespace UserSyncClient
                     searchRoot.Password = ConfigurationManager.AppSettings["ADServerPassword"];
                 }
                 //string domainName = (string)searchRoot.Properties["defaultNamingContext"].Value;
-                DirectorySearcher search = new DirectorySearcher(searchRoot, "(&(objectCategory=group)(CN=cloudidsyncusers))");                
+                DirectorySearcher search = new DirectorySearcher(searchRoot, "(&(objectCategory=group)(CN=cloudidsyncusers))");
                 SearchResult result = search.FindOne();
                 if (result != null)
                 {
@@ -66,12 +66,12 @@ namespace UserSyncClient
                         {
                             userDe = new DirectoryEntry(String.Concat("LDAP://", adServerName, "/", member.ToString()));
                             userDe.Username = ConfigurationManager.AppSettings["ADServerUserName"];
-                            userDe.Password = ConfigurationManager.AppSettings["ADServerPassword"];                            
+                            userDe.Password = ConfigurationManager.AppSettings["ADServerPassword"];
                         }
+                        else
                         {
                             userDe = new DirectoryEntry(String.Concat("LDAP://", member.ToString()));
                         }
-
                         SecurityGroupUser adUser = new SecurityGroupUser();
                         if (userDe.Properties["objectClass"].Contains("user"))
                         {
@@ -236,7 +236,7 @@ namespace UserSyncClient
                     serverName = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).HostName;
                 }
 
-                System.Net.NetworkCredential domainCredential = null;                
+                System.Net.NetworkCredential domainCredential = null;
                 if (!string.IsNullOrEmpty(userName))
                     domainCredential = new System.Net.NetworkCredential(userName, password, domain);
                 //Create client connection to the AD server.
@@ -385,6 +385,6 @@ namespace UserSyncClient
                 //Update the local storage
                 ds.WriteXml(filePath);
             }
-        }        
+        }
     }
 }
