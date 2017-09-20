@@ -27,6 +27,7 @@ namespace UserSyncClient
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            // Add new line to test Git
             try
             {
                 Process runningProcess = Process.GetCurrentProcess();
